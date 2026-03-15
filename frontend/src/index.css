@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #0f0f14;
+    color: #e2e2e8;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar       { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #2e2e3a; border-radius: 3px; }
+}
+
+@layer components {
+  /* Cards */
+  .card {
+    @apply bg-[#16161e] border border-white/[0.06] rounded-xl;
+  }
+  .card-sm {
+    @apply bg-[#1c1c26] border border-white/[0.06] rounded-lg;
+  }
+
+  /* Status badges */
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium;
+  }
+  .badge-draft      { @apply bg-zinc-800 text-zinc-300; }
+  .badge-validated  { @apply bg-blue-900/60 text-blue-300; }
+  .badge-approved   { @apply bg-emerald-900/60 text-emerald-300; }
+  .badge-failed     { @apply bg-red-900/60 text-red-300; }
+  .badge-running    { @apply bg-amber-900/60 text-amber-300; }
+  .badge-success    { @apply bg-emerald-900/60 text-emerald-300; }
+  .badge-warning    { @apply bg-amber-900/60 text-amber-300; }
+
+  /* Step type badges */
+  .step-command  { @apply bg-violet-900/50 text-violet-300 border border-violet-700/40; }
+  .step-assert   { @apply bg-blue-900/50 text-blue-300 border border-blue-700/40; }
+  .step-decision { @apply bg-amber-900/50 text-amber-300 border border-amber-700/40; }
+  .step-wait     { @apply bg-zinc-800 text-zinc-400 border border-zinc-700/40; }
+
+  /* Severity badges */
+  .sev-critical { @apply bg-red-900/60 text-red-300 border border-red-700/40; }
+  .sev-high     { @apply bg-orange-900/60 text-orange-300 border border-orange-700/40; }
+  .sev-medium   { @apply bg-amber-900/60 text-amber-300 border border-amber-700/40; }
+  .sev-low      { @apply bg-zinc-800 text-zinc-400 border border-zinc-700/40; }
+
+  /* Buttons */
+  .btn-primary {
+    @apply px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-lg
+           text-sm font-medium transition-all duration-150 disabled:opacity-40
+           disabled:cursor-not-allowed active:scale-95;
+  }
+  .btn-secondary {
+    @apply px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10
+           text-sm font-medium rounded-lg transition-all duration-150 active:scale-95;
+  }
+  .btn-danger {
+    @apply px-4 py-2 bg-red-900/40 hover:bg-red-800/60 border border-red-700/40
+           text-red-300 text-sm font-medium rounded-lg transition-all duration-150;
+  }
+
+  /* Terminal / code blocks */
+  .terminal {
+    @apply font-mono text-xs bg-[#0a0a10] border border-white/[0.06] rounded-lg
+           p-3 overflow-auto text-green-400 leading-relaxed;
+  }
+
+  /* Sidebar nav */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-zinc-400
+           hover:text-white hover:bg-white/5 transition-all duration-150 cursor-pointer;
+  }
+  .nav-item.active {
+    @apply bg-brand-600/20 text-brand-400 border border-brand-600/30;
+  }
+}
+
+/* Glowing pulse for active agents */
+@keyframes agent-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+}
+.agent-active { animation: agent-pulse 1.5s ease-in-out infinite; }
+
+/* Scan line for running steps */
+@keyframes scan {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+.scan-line::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent);
+  animation: scan 1.8s ease-in-out infinite;
+}
+
+/* Fade-in for new content */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.25s ease-out forwards; }

@@ -1,0 +1,102 @@
+{
+  "policies": [
+    {
+      "id": "P-101",
+      "name": "Production Change Window",
+      "rule_type": "SCHEDULE",
+      "severity": "HIGH",
+      "description": "Production changes must occur between 10PM and 6AM UTC",
+      "check": "production_change_window",
+      "applies_to": ["production", "prod"],
+      "remediation": "Schedule this runbook execution within the approved change window (10PM–6AM UTC)"
+    },
+    {
+      "id": "P-102",
+      "name": "VP Approval for DB Operations",
+      "rule_type": "APPROVAL",
+      "severity": "CRITICAL",
+      "description": "Any step that modifies a production database requires VP-level approval",
+      "check": "requires_vp_approval",
+      "keywords": ["pg_ctl promote", "pg_basebackup", "DROP DATABASE", "ALTER DATABASE", "failover", "promote"],
+      "remediation": "Add a human-in-the-loop approval gate at this step and assign to VP Engineering"
+    },
+    {
+      "id": "P-103",
+      "name": "SSH Command Audit Logging",
+      "rule_type": "COMPLIANCE",
+      "severity": "HIGH",
+      "description": "All SSH commands must be logged to the audit trail",
+      "check": "ssh_logging",
+      "keywords": ["ssh", "scp", "rsync"],
+      "remediation": "Wrap SSH commands with the auditd logger: audit-exec '<command>'"
+    },
+    {
+      "id": "P-104",
+      "name": "Max Parallel Executions",
+      "rule_type": "CONSTRAINT",
+      "severity": "MEDIUM",
+      "description": "No more than 50 steps may execute in parallel",
+      "check": "parallel_limit",
+      "limit": 50,
+      "remediation": "Reduce parallel step fan-out to a maximum of 50 concurrent steps"
+    },
+    {
+      "id": "P-105",
+      "name": "Rollback Procedure Required",
+      "rule_type": "STRUCTURE",
+      "severity": "HIGH",
+      "description": "Any runbook with COMMAND steps must include at least one rollback step",
+      "check": "rollback_required",
+      "remediation": "Add a rollback section to the runbook with explicit recovery steps"
+    },
+    {
+      "id": "P-106",
+      "name": "Smoke Test After Deployment",
+      "rule_type": "STRUCTURE",
+      "severity": "MEDIUM",
+      "description": "Runbooks that restart services must end with an ASSERT smoke test",
+      "check": "smoke_test_required",
+      "keywords": ["restart", "rollout restart", "scale", "deploy"],
+      "remediation": "Add an ASSERT step at the end of the runbook to verify service health"
+    },
+    {
+      "id": "P-107",
+      "name": "No Plaintext Secrets",
+      "rule_type": "SECURITY",
+      "severity": "CRITICAL",
+      "description": "Runbook steps must not contain plaintext passwords or API keys",
+      "check": "no_plaintext_secrets",
+      "patterns": ["password=", "passwd=", "api_key=", "secret=", "token=", "AWS_SECRET"],
+      "remediation": "Replace plaintext credentials with parameter placeholders: {secret_name}"
+    },
+    {
+      "id": "P-108",
+      "name": "Kubernetes Namespace Isolation",
+      "rule_type": "CONSTRAINT",
+      "severity": "HIGH",
+      "description": "kubectl commands must specify an explicit namespace",
+      "check": "k8s_namespace_required",
+      "keywords": ["kubectl"],
+      "remediation": "Add -n {namespace} flag to all kubectl commands"
+    },
+    {
+      "id": "P-109",
+      "name": "Force-Delete Forbidden",
+      "rule_type": "SECURITY",
+      "severity": "CRITICAL",
+      "description": "kubectl delete --force and rm -rf are prohibited without approval",
+      "check": "force_delete_forbidden",
+      "keywords": ["delete --force", "delete -f --grace-period=0", "rm -rf"],
+      "remediation": "Add an explicit approval gate before any force-delete operation"
+    },
+    {
+      "id": "P-110",
+      "name": "Parameter Documentation",
+      "rule_type": "STRUCTURE",
+      "severity": "LOW",
+      "description": "All runbook parameters must be documented with descriptions",
+      "check": "params_documented",
+      "remediation": "Add descriptions to all parameters in the runbook parameter section"
+    }
+  ]
+}

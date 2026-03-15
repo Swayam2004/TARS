@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1754cf",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>Interactive Runbook</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 md:px-10 py-3">
+<div class="flex items-center gap-3">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">auto_awesome</span>
+</div>
+<h2 class="text-lg font-bold tracking-tight">Interactive Runbook</h2>
+<div class="ml-4 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-500">
+                    Draft v1.2
+                </div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-xl">history</span>
+<span class="text-sm font-medium hidden sm:inline">History</span>
+</button>
+<button class="flex items-center gap-2 bg-primary text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-primary/90 transition-all shadow-sm">
+<span class="material-symbols-outlined text-xl">share</span>
+<span class="truncate">Share</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden border border-primary/30">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="User avatar placeholder with a minimalist icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWX2ueYkpUoJA_vV07XOM-HfmNcf_GADkM0-YEdna6KvHF2leFf-oN0H8yaeEO2h7b4lI8S-Tfkjhv9wDsIlAoDIQDWN8yeK1bVEYX_-qhw2OSA4oWyowURIUEzCQyNXLyIMVeXlNGeMkgUpLGhQ2Sl59gb-sw31P42GWfo7-DMZip3U_0BZocB9LhncLLvtSAUmMaURCdJajGnTbeHYXGCmBzaekKD8sMGZT0U4MAS997zYhD9X3R3Qd6Esj67ilQslPszSwQB5SC"/>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-5xl mx-auto w-full px-4 py-8 space-y-12">
+<!-- Step 1 -->
+<section class="group relative bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold">1</span>
+<h2 class="text-xl font-bold">Environment Setup</h2>
+</div>
+<div class="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400">
+<p>Initialize the workspace and install necessary dependencies for the data pipeline. We'll use <code>pandas</code> for manipulation and <code>scikit-learn</code> for preprocessing.</p>
+</div>
+</div>
+</div>
+<div class="relative flex items-stretch gap-4">
+<div class="flex-1 flex flex-col border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-950">
+<div class="flex items-center justify-between px-4 py-2 border-b border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900/50">
+<span class="text-xs font-mono text-slate-500 uppercase tracking-wider">Python</span>
+<div class="flex gap-2">
+<button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined text-sm">content_copy</span></button>
+</div>
+</div>
+<div class="p-4 font-mono text-sm leading-relaxed text-slate-800 dark:text-slate-300">
+<span class="text-primary italic"># Install core dependencies</span><br/>
+                            !pip install pandas numpy scikit-learn matplotlib
+                        </div>
+<div class="flex items-center justify-between p-2 border-t border-slate-200 dark:border-slate-700">
+<div class="flex items-center gap-2 text-[10px] text-slate-400 px-2 italic">
+<span class="material-symbols-outlined text-xs">info</span> Last run: 2 mins ago
+                            </div>
+<button class="flex items-center gap-2 bg-primary text-white px-4 py-1.5 rounded text-sm font-semibold hover:bg-primary/90">
+<span class="material-symbols-outlined text-base">play_arrow</span>
+                                Run
+                            </button>
+</div>
+</div>
+<button class="flex items-center justify-center self-start p-2 rounded-full border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-primary hover:border-primary transition-colors mt-1" title="Ask AI about this step">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+</div>
+</section>
+<!-- Step 2 -->
+<section class="group relative bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold">2</span>
+<h2 class="text-xl font-bold">Data Ingestion</h2>
+</div>
+<div class="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400">
+<p>Fetch the raw dataset from the production warehouse. Ensure you have the <code>DATABASE_URL</code> environment variable set in your secrets manager.</p>
+</div>
+</div>
+</div>
+<div class="relative flex items-stretch gap-4">
+<div class="flex-1 flex flex-col border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-950">
+<div class="flex items-center justify-between px-4 py-2 border-b border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900/50">
+<span class="text-xs font-mono text-slate-500 uppercase tracking-wider">Python</span>
+<div class="flex gap-2">
+<button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined text-sm">content_copy</span></button>
+</div>
+</div>
+<div class="p-4 font-mono text-sm leading-relaxed text-slate-800 dark:text-slate-300">
+<span class="text-blue-600 dark:text-blue-400">import</span> pandas <span class="text-blue-600 dark:text-blue-400">as</span> pd<br/>
+<span class="text-blue-600 dark:text-blue-400">import</span> os<br/><br/>
+                            query = <span class="text-emerald-600">"SELECT * FROM production.sales_data WHERE date &gt; '2023-01-01'"</span><br/>
+                            df = pd.read_sql(query, os.getenv(<span class="text-emerald-600">'DATABASE_URL'</span>))<br/>
+                            df.head()
+                        </div>
+<div class="flex items-center justify-between p-2 border-t border-slate-200 dark:border-slate-700">
+<div class="flex items-center gap-2 text-[10px] text-slate-400 px-2 italic uppercase font-bold tracking-tight">
+<span class="text-red-500 material-symbols-outlined text-xs">error</span> Not executed
+                            </div>
+<button class="flex items-center gap-2 bg-primary text-white px-4 py-1.5 rounded text-sm font-semibold hover:bg-primary/90">
+<span class="material-symbols-outlined text-base">play_arrow</span>
+                                Run
+                            </button>
+</div>
+</div>
+<button class="flex items-center justify-center self-start p-2 rounded-full border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-primary hover:border-primary transition-colors mt-1" title="Ask AI about this step">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+</div>
+</section>
+<!-- Step 3 -->
+<section class="group relative bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold">3</span>
+<h2 class="text-xl font-bold">Preprocessing &amp; Cleaning</h2>
+</div>
+<div class="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400">
+<p>Handle missing values and encode categorical variables for the model. We'll use a simple imputer for this demonstration.</p>
+</div>
+</div>
+</div>
+<div class="relative flex items-stretch gap-4">
+<div class="flex-1 flex flex-col border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-950">
+<div class="flex items-center justify-between px-4 py-2 border-b border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900/50">
+<span class="text-xs font-mono text-slate-500 uppercase tracking-wider">Python</span>
+<div class="flex gap-2">
+<button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined text-sm">content_copy</span></button>
+</div>
+</div>
+<div class="p-4 font-mono text-sm leading-relaxed text-slate-800 dark:text-slate-300">
+<span class="text-blue-600 dark:text-blue-400">from</span> sklearn.impute <span class="text-blue-600 dark:text-blue-400">import</span> SimpleImputer<br/><br/>
+                            imputer = SimpleImputer(strategy=<span class="text-emerald-600">'mean'</span>)<br/>
+                            df[<span class="text-emerald-600">'amount'</span>] = imputer.fit_transform(df[[<span class="text-emerald-600">'amount'</span>]])<br/>
+                            print(<span class="text-emerald-600">"Cleaning complete. Shape:"</span>, df.shape)
+                        </div>
+<div class="flex items-center justify-between p-2 border-t border-slate-200 dark:border-slate-700">
+<div class="flex items-center gap-2 text-[10px] text-slate-400 px-2 italic uppercase font-bold tracking-tight">
+<span class="text-red-500 material-symbols-outlined text-xs">error</span> Not executed
+                            </div>
+<button class="flex items-center gap-2 bg-primary text-white px-4 py-1.5 rounded text-sm font-semibold hover:bg-primary/90">
+<span class="material-symbols-outlined text-base">play_arrow</span>
+                                Run
+                            </button>
+</div>
+</div>
+<button class="flex items-center justify-center self-start p-2 rounded-full border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-primary hover:border-primary transition-colors mt-1" title="Ask AI about this step">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+</div>
+</section>
+<!-- Add new step helper -->
+<div class="flex items-center justify-center py-8">
+<button class="flex items-center gap-2 px-6 py-3 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl text-slate-500 hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-semibold">Add new step</span>
+</button>
+</div>
+</main>
+<!-- Floating Action Button (AI Assistant) -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="group flex items-center justify-center w-14 h-14 bg-primary text-white rounded-full shadow-2xl hover:scale-110 transition-transform relative">
+<span class="material-symbols-outlined text-3xl">auto_awesome</span>
+<!-- Tooltip / Label -->
+<span class="absolute right-full mr-4 bg-slate-900 text-white text-xs py-2 px-4 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                    Ask Runbook AI
+                </span>
+</button>
+</div>
+<!-- Footer Info -->
+<footer class="max-w-5xl mx-auto w-full px-4 pb-12 pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-slate-500 text-sm">
+<div class="flex items-center gap-4">
+<span>© 2024 Interactive Runbook</span>
+<span>•</span>
+<a class="hover:underline" href="#">Documentation</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    Connected to Jupyter Kernel
+                </div>
+</div>
+</footer>
+</div>
+</body></html>

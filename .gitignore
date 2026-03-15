@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+*/node_modules/
+package-lock.json
+*/package-lock.json
+
+# Environment variables with secrets
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# Backend
+backend/uploads/
+backend/logs/
+backend/*.log
+
+# Frontend
+frontend/dist/
+frontend/.vite/
+
+# IDE and Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.env.*.example
+
+# Database files (generated at runtime)
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Archive files (if Stitch workspace is exported regularly)
+*.zip
+
+# Optional npm cache
+.npm
+.npmrc
+
+# Optional yarn cache
+.yarn/cache/
+
+# Miscellaneous
+.cache/
+.temp/
+tmp/
+temp/
