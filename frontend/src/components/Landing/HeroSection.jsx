@@ -40,8 +40,8 @@ export default function HeroSection() {
         <h1 className="text-slate-900 text-5xl md:text-7xl font-black leading-tight tracking-tight">
           Your Intelligent{' '}
           <span className="text-primary">Runbook</span>{' '}
-          Assistant - 
-          <span style="text-color: #92D400">TARS</span>{' '}
+          Assistant - {' '}
+          <span style={{ color: '#92D400' }}>TARS</span>{' '}
         </h1>
 
         {/* Subtext */}
