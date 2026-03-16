@@ -1,3 +1,13 @@
+import { mkdirSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Create required directories before anything else loads
+mkdirSync(join(__dirname, '../data'),    { recursive: true });
+mkdirSync(join(__dirname, 'uploads'),   { recursive: true });
+
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
