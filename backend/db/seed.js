@@ -6,7 +6,7 @@ const db = getDb();
 const now = () => new Date().toISOString();
 const daysAgo = (n) => new Date(Date.now() - n * 86400000).toISOString();
 
-function seed() {
+export function seed() {
   const existing = db.prepare('SELECT COUNT(*) as cnt FROM runbooks').get();
   if (existing.cnt > 0) {
     console.log('Database already seeded. Skipping.');

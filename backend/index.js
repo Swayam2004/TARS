@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import { getDb } from './db/database.js';
+import { seed } from './db/seed.js';
 
 import documentsRouter  from './routes/documents.js';
 import runbooksRouter   from './routes/runbooks.js';
@@ -13,12 +14,16 @@ const app  = express();
 const PORT = process.env.PORT || 3001;
 
 // ── Middleware ─────────────────────────────────────────────────────────────
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({
+  origin: process.env.ALLOWED_ORIGIN || '*',
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ── Init DB on startup ─────────────────────────────────────────────────────
 getDb();
+seed();
 
 // ── Routes ─────────────────────────────────────────────────────────────────
 app.use('/api/documents',            documentsRouter);
