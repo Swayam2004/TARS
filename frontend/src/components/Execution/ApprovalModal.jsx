@@ -4,38 +4,60 @@ export default function ApprovalModal({ step, onApprove, onReject }) {
   if (!step) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 16 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="card max-w-md w-full p-6 border border-amber-500/30"
+        animate={{ opacity: 1, scale: 1,    y: 0  }}
+        className="bg-white border border-amber-200 rounded-2xl shadow-2xl max-w-md w-full p-6"
       >
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-amber-900/40 flex items-center justify-center text-xl">⏸</div>
+        {/* Icon + title */}
+        <div className="flex items-center gap-4 mb-5">
+          <div className="w-11 h-11 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
+            <span className="material-symbols-outlined text-amber-600 text-2xl">gavel</span>
+          </div>
           <div>
-            <div className="text-sm font-semibold text-white">Human Approval Required</div>
-            <div className="text-xs text-zinc-500">Step {step.order} · {step.type}</div>
+            <div className="text-base font-bold text-slate-900">Human Approval Required</div>
+            <div className="text-xs text-slate-500 mt-0.5">Step {step.order} · {step.type || 'COMMAND'}</div>
           </div>
         </div>
 
-        <div className="bg-white/[0.03] rounded-lg p-3 mb-4 border border-white/[0.06]">
-          <div className="text-sm text-white mb-2">{step.description}</div>
+        {/* Step detail */}
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-5">
+          <div className="text-sm font-medium text-slate-800 mb-2">{step.description}</div>
           {step.cmd && (
-            <div className="terminal text-[10px]">{step.cmd}</div>
+            <div className="font-mono text-xs text-slate-600 bg-white border border-slate-200
+                            rounded-lg p-3 leading-relaxed overflow-x-auto">
+              {step.cmd}
+            </div>
           )}
         </div>
 
-        <p className="text-xs text-zinc-400 mb-5">
-          This step performs a high-risk operation and requires explicit approval
-          before execution proceeds. Review the command above and confirm.
+        <p className="text-xs text-slate-500 leading-relaxed mb-5">
+          This step performs a high-risk operation and requires explicit approval before execution proceeds.
+          Review the command above carefully before confirming.
         </p>
 
-        <div className="flex gap-2">
-          <button className="btn-primary flex-1" onClick={onApprove}>
-            ✓ Approve &amp; Continue
+        {/* Actions */}
+        <div className="flex gap-3">
+          <button
+            onClick={onApprove}
+            className="flex-1 flex items-center justify-center gap-2
+                       bg-primary hover:bg-primary/90 text-white
+                       px-4 py-2.5 rounded-lg text-sm font-bold
+                       transition-all shadow-sm active:scale-95"
+          >
+            <span className="material-symbols-outlined text-[18px]">check_circle</span>
+            Approve &amp; Continue
           </button>
-          <button className="btn-danger" onClick={onReject}>
-            ✗ Reject
+          <button
+            onClick={onReject}
+            className="flex items-center justify-center gap-2
+                       bg-red-50 hover:bg-red-100 text-red-600
+                       border border-red-200 px-4 py-2.5 rounded-lg
+                       text-sm font-semibold transition-all active:scale-95"
+          >
+            <span className="material-symbols-outlined text-[18px]">cancel</span>
+            Reject
           </button>
         </div>
       </motion.div>

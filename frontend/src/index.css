@@ -5,90 +5,134 @@
 @layer base {
   * { box-sizing: border-box; }
 
+  html { scroll-behavior: smooth; }
+
   body {
     font-family: 'Inter', system-ui, sans-serif;
-    background: #0f0f14;
-    color: #e2e2e8;
+    background-color: #f6f6f8;   /* background-light */
+    color: #0f172a;               /* slate-900 */
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Dark mode body */
+  body.dark {
+    background-color: #111621;  /* background-dark */
+    color: #f1f5f9;             /* slate-100 */
   }
 
   ::-webkit-scrollbar       { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #2e2e3a; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+  .dark ::-webkit-scrollbar-thumb { background: #334155; }
 }
 
 @layer components {
-  /* Cards */
+  /* ── Cards ─────────────────────────────────────────────── */
   .card {
-    @apply bg-[#16161e] border border-white/[0.06] rounded-xl;
+    @apply bg-white dark:bg-slate-900
+           border border-slate-200 dark:border-slate-800
+           rounded-xl shadow-card;
   }
   .card-sm {
-    @apply bg-[#1c1c26] border border-white/[0.06] rounded-lg;
+    @apply bg-white dark:bg-slate-900
+           border border-slate-200 dark:border-slate-800
+           rounded-lg;
   }
 
-  /* Status badges */
+  /* ── Status badges ──────────────────────────────────────── */
   .badge {
     @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium;
   }
-  .badge-draft      { @apply bg-zinc-800 text-zinc-300; }
-  .badge-validated  { @apply bg-blue-900/60 text-blue-300; }
-  .badge-approved   { @apply bg-emerald-900/60 text-emerald-300; }
-  .badge-failed     { @apply bg-red-900/60 text-red-300; }
-  .badge-running    { @apply bg-amber-900/60 text-amber-300; }
-  .badge-success    { @apply bg-emerald-900/60 text-emerald-300; }
-  .badge-warning    { @apply bg-amber-900/60 text-amber-300; }
+  .badge-draft      { @apply bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400; }
+  .badge-validated  { @apply bg-blue-50  dark:bg-blue-900/40 text-blue-600 dark:text-blue-300; }
+  .badge-approved   { @apply bg-emerald-50  dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-300; }
+  .badge-failed     { @apply bg-red-50   dark:bg-red-900/40 text-red-600 dark:text-red-300; }
+  .badge-running    { @apply bg-amber-50 dark:bg-amber-900/40 text-amber-600 dark:text-amber-300; }
+  .badge-success    { @apply bg-emerald-50  dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-300; }
+  .badge-warning    { @apply bg-amber-50 dark:bg-amber-900/40 text-amber-600 dark:text-amber-300; }
 
-  /* Step type badges */
-  .step-command  { @apply bg-violet-900/50 text-violet-300 border border-violet-700/40; }
-  .step-assert   { @apply bg-blue-900/50 text-blue-300 border border-blue-700/40; }
-  .step-decision { @apply bg-amber-900/50 text-amber-300 border border-amber-700/40; }
-  .step-wait     { @apply bg-zinc-800 text-zinc-400 border border-zinc-700/40; }
+  /* ── Step type badges ───────────────────────────────────── */
+  .step-command  { @apply bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-700/40; }
+  .step-assert   { @apply bg-blue-50   dark:bg-blue-900/30   text-blue-700   dark:text-blue-300   border border-blue-200   dark:border-blue-700/40; }
+  .step-decision { @apply bg-amber-50  dark:bg-amber-900/30  text-amber-700  dark:text-amber-300  border border-amber-200  dark:border-amber-700/40; }
+  .step-wait     { @apply bg-slate-100 dark:bg-slate-800     text-slate-500  dark:text-slate-400  border border-slate-200  dark:border-slate-700/40; }
 
-  /* Severity badges */
-  .sev-critical { @apply bg-red-900/60 text-red-300 border border-red-700/40; }
-  .sev-high     { @apply bg-orange-900/60 text-orange-300 border border-orange-700/40; }
-  .sev-medium   { @apply bg-amber-900/60 text-amber-300 border border-amber-700/40; }
-  .sev-low      { @apply bg-zinc-800 text-zinc-400 border border-zinc-700/40; }
+  /* ── Severity badges ────────────────────────────────────── */
+  .sev-critical { @apply bg-red-50    dark:bg-red-900/40    text-red-700    dark:text-red-300    border border-red-200    dark:border-red-700/40; }
+  .sev-high     { @apply bg-orange-50 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-700/40; }
+  .sev-medium   { @apply bg-amber-50  dark:bg-amber-900/40  text-amber-700  dark:text-amber-300  border border-amber-200  dark:border-amber-700/40; }
+  .sev-low      { @apply bg-slate-100 dark:bg-slate-800     text-slate-500  dark:text-slate-400  border border-slate-200  dark:border-slate-700/40; }
 
-  /* Buttons */
+  /* ── Buttons ────────────────────────────────────────────── */
   .btn-primary {
-    @apply px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-lg
-           text-sm font-medium transition-all duration-150 disabled:opacity-40
-           disabled:cursor-not-allowed active:scale-95;
+    @apply inline-flex items-center gap-2
+           px-5 py-2 bg-primary hover:bg-primary/90
+           text-white text-sm font-bold rounded-lg
+           shadow-primary transition-all duration-150
+           disabled:opacity-40 disabled:cursor-not-allowed active:scale-95;
   }
   .btn-secondary {
-    @apply px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10
-           text-sm font-medium rounded-lg transition-all duration-150 active:scale-95;
+    @apply inline-flex items-center gap-2
+           px-4 py-2 bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800
+           border border-slate-200 dark:border-slate-700
+           text-slate-600 dark:text-slate-400
+           text-sm font-medium rounded-lg
+           transition-all duration-150 active:scale-95;
   }
   .btn-danger {
-    @apply px-4 py-2 bg-red-900/40 hover:bg-red-800/60 border border-red-700/40
-           text-red-300 text-sm font-medium rounded-lg transition-all duration-150;
+    @apply inline-flex items-center gap-2
+           px-4 py-2 bg-red-500 hover:bg-red-600
+           text-white text-sm font-semibold rounded
+           transition-all duration-150;
   }
 
-  /* Terminal / code blocks */
+  /* ── Code blocks ────────────────────────────────────────── */
+  .code-block {
+    @apply font-mono text-sm leading-relaxed
+           text-slate-800 dark:text-slate-300
+           bg-slate-50 dark:bg-slate-950
+           p-4 overflow-auto;
+  }
   .terminal {
-    @apply font-mono text-xs bg-[#0a0a10] border border-white/[0.06] rounded-lg
-           p-3 overflow-auto text-green-400 leading-relaxed;
+    @apply font-mono text-xs
+           bg-slate-950 border border-slate-800 rounded-lg
+           p-3 overflow-auto text-emerald-400 leading-relaxed;
   }
 
-  /* Sidebar nav */
+  /* ── Navigation ─────────────────────────────────────────── */
   .nav-item {
-    @apply flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-zinc-400
-           hover:text-white hover:bg-white/5 transition-all duration-150 cursor-pointer;
+    @apply flex items-center gap-3 px-3 py-2 rounded-lg
+           text-sm text-slate-600 dark:text-slate-400
+           hover:text-primary dark:hover:text-primary
+           hover:bg-primary/5 dark:hover:bg-primary/10
+           transition-all duration-150 cursor-pointer;
   }
   .nav-item.active {
-    @apply bg-brand-600/20 text-brand-400 border border-brand-600/30;
+    @apply bg-primary/10 dark:bg-primary/20
+           text-primary border border-primary/20;
+  }
+
+  /* ── Step card (workspace) ──────────────────────────────── */
+  .step-card {
+    @apply group relative bg-white dark:bg-slate-900
+           rounded-xl border border-slate-200 dark:border-slate-800
+           shadow-card hover:shadow-card-hover
+           p-6 transition-shadow duration-200;
   }
 }
 
-/* Glowing pulse for active agents */
+/* ── Animations ───────────────────────────────────────────── */
+
+/* Agent pulse — used on running pipeline cards */
 @keyframes agent-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
-  50%       { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(23, 84, 207, 0.35); }
+  50%       { box-shadow: 0 0 0 8px rgba(23, 84, 207, 0); }
 }
 .agent-active { animation: agent-pulse 1.5s ease-in-out infinite; }
 
-/* Scan line for running steps */
+/* Running scan line overlay */
 @keyframes scan {
   0%   { transform: translateX(-100%); }
   100% { transform: translateX(400%); }
@@ -96,14 +140,20 @@
 .scan-line::after {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent);
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(23, 84, 207, 0.12), transparent);
   animation: scan 1.8s ease-in-out infinite;
+  pointer-events: none;
 }
 
-/* Fade-in for new content */
+/* Fade-in slide-up */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 .fade-in { animation: fadeIn 0.25s ease-out forwards; }
+
+/* Radial hero gradient helper */
+.hero-gradient {
+  background: radial-gradient(circle at center, rgba(23,84,207,0.05) 0%, transparent 70%);
+}
